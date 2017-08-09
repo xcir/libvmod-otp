@@ -130,7 +130,7 @@ vmod_hash_hmac(VRT_CTX,
 	return p;
 }
 
-VCL_INT
+VCL_STRING
 vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t seed, int digit,VCL_ENUM digest){
 	char *sec;
 	int lsec = vmod_base32_decode(ctx,b32_secret,&sec);
@@ -156,10 +156,13 @@ vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t seed, int digit,VCL_ENUM dig
 				((hmac[offset + 1] & 0xFF) << 16) |
 				((hmac[offset + 2] & 0xFF) << 8 ) |
 				 (hmac[offset + 3] & 0xFF);
-	return code % (int)pow(10, digit);
+	char fmt[21];
+	sprintf(fmt,"%%0%dd",digit);
+	char*p    = WS_Alloc(ctx->ws, digit+ 1);
+	sprintf(p,fmt, code % (int)pow(10, digit));
+	return p;
 
 }
-
 
 int __match_proto__(vmod_event_f)
 event_function(VRT_CTX, struct vmod_priv *priv, enum vcl_event_e e)
@@ -177,17 +180,17 @@ event_function(VRT_CTX, struct vmod_priv *priv, enum vcl_event_e e)
 }
 
 
-VCL_INT
+VCL_STRING
 vmod_hotp(VRT_CTX,VCL_STRING b32_secret,VCL_INT seed, VCL_INT digit,VCL_ENUM digest){
 	return vmod_otp_gen(ctx,b32_secret,seed,digit,digest);
 }
 
-VCL_INT
+VCL_STRING
 vmod_totp(VRT_CTX,VCL_STRING b32_secret,VCL_INT interval, VCL_INT digit,VCL_ENUM digest){
 	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(ctx->now / interval),digit,digest);
 }
 
-VCL_INT
+VCL_STRING
 vmod_totp_settime(VRT_CTX,VCL_STRING b32_secret,VCL_REAL time , VCL_INT interval, VCL_INT digit,VCL_ENUM digest){
 	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(time / interval),digit,digest);
 }

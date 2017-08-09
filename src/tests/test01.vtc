@@ -68,7 +68,7 @@ client c1 {
 	expect resp.http.t59_sha256 == "46119246"
 	expect resp.http.t59_sha512 == "90693936"
 
-	expect resp.http.t1111111109_sha1   == "7081804"
+	expect resp.http.t1111111109_sha1   == "07081804"
 	expect resp.http.t1111111109_sha256 == "68084774"
 	expect resp.http.t1111111109_sha512 == "25091201"
 
