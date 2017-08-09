@@ -146,12 +146,10 @@ vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t seed, int digit,VCL_ENUM dig
 	}else{
 		hash = MHASH_MD4;
 	}
-	lsec --;
 	char cseed[8];
 	for(int i=0;i<8;i++){
 		cseed[7-i] = (seed & (0xff << (i*8))) >> (i*8);
 	}
-	syslog(6,"bs;%s %d %lu",sec,lsec,seed);
 	const char *hmac =vmod_hash_hmac(ctx,hash,sec,lsec,cseed,8,true);
 	int offset = hmac[(int)mhash_get_block_size(hash)-1] & 0xf;
 	int code   =((hmac[offset    ] & 0x7F) << 24) |
