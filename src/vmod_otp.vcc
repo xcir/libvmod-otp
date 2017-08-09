@@ -1,0 +1,39 @@
+#
+# Copyright (c) 2017- Shohei Tanaka(@xcir)
+#
+# File layout and configuration based on libvmod-example
+# Copyright (c) 2011 Varnish Software AS
+# hmac-sha1 based on libvmod-digest( https://github.com/varnish/libvmod-digest )
+#
+
+$Module otp 3 Otp VMOD
+
+DESCRIPTION
+===========
+
+This is the embedded documentation for the otp VMOD. It should
+mention what the vmod is intended to do.
+
+It can span multiple lines and is written in RST format.
+You can even have links and lists in here:
+
+* https://github.com/varnish/libvmod-otp/
+* https://www.varnish-cache.org/
+
+The init-function declared next does not have documentation.
+
+$Event event_function
+
+
+$Function INT hotp(STRING b32_secret, INT seed, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+
+hoge
+
+$Function INT totp(STRING b32_secret, INT interval=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+
+hoge
+
+$Function INT totp_settime(STRING b32_secret, DURATION time, INT interval=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+
+hoge
+
