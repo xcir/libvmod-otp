@@ -147,8 +147,8 @@ vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t count, int digit,VCL_ENUM di
 		hash = MHASH_MD4;
 	}
 	char ccount[8];
-	for(int i=0;i<8;i++){
-		ccount[7-i] = count & 0xff;
+	for(int i=7;i>=0;i--){
+		ccount[i] = count & 0xff;
 		count >>=8;
 	}
 	const char *hmac =vmod_hash_hmac(ctx,hash,sec,lsec,ccount,8,true);
