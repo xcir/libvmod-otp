@@ -64,7 +64,7 @@ totp_settime
 Prototype
         ::
 
-                totp_settime(STRING b32_secret, DURATION time, INT interval=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+                totp_settime(STRING b32_secret, REAL time, INT interval=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
 Return value
 	INT
 Description

@@ -33,7 +33,7 @@ $Function INT totp(STRING b32_secret, INT interval=30, INT digit=6, ENUM { md4, 
 
 hoge
 
-$Function INT totp_settime(STRING b32_secret, DURATION time, INT interval=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+$Function INT totp_settime(STRING b32_secret, REAL time, INT interval=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
 
 hoge
 

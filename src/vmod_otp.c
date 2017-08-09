@@ -98,7 +98,6 @@ vmod_hash_hmac(VRT_CTX,
 	char *ptmp;
 	p    = WS_Alloc(ctx->ws, blocksize * 2 + 1);
 	ptmp = p;
-
 	
 	unsigned char *mac;
 	unsigned u;
@@ -147,18 +146,18 @@ vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t seed, int digit,VCL_ENUM dig
 	}else{
 		hash = MHASH_MD4;
 	}
-	
+	lsec --;
 	char cseed[8];
 	for(int i=0;i<8;i++){
 		cseed[7-i] = (seed & (0xff << (i*8))) >> (i*8);
 	}
+	syslog(6,"bs;%s %d %lu",sec,lsec,seed);
 	const char *hmac =vmod_hash_hmac(ctx,hash,sec,lsec,cseed,8,true);
-	
-	int offset = hmac[19] & 0xf;
-	int code   =(hmac[offset + 0] & 0x7F) << 24 |
-				(hmac[offset + 1] & 0xFF) << 16 |
-				(hmac[offset + 2] & 0xFF) << 8  |
-				(hmac[offset + 3] & 0xFF);
+	int offset = hmac[(int)mhash_get_block_size(hash)-1] & 0xf;
+	int code   =((hmac[offset    ] & 0x7F) << 24) |
+				((hmac[offset + 1] & 0xFF) << 16) |
+				((hmac[offset + 2] & 0xFF) << 8 ) |
+				 (hmac[offset + 3] & 0xFF);
 	return code % (int)pow(10, digit);
 
 }
@@ -191,7 +190,7 @@ vmod_totp(VRT_CTX,VCL_STRING b32_secret,VCL_INT interval, VCL_INT digit,VCL_ENUM
 }
 
 VCL_INT
-vmod_totp_settime(VRT_CTX,VCL_STRING b32_secret,VCL_DURATION time , VCL_INT interval, VCL_INT digit,VCL_ENUM digest){
+vmod_totp_settime(VRT_CTX,VCL_STRING b32_secret,VCL_REAL time , VCL_INT interval, VCL_INT digit,VCL_ENUM digest){
 	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(time / interval),digit,digest);
 }
 
