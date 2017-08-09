@@ -148,7 +148,8 @@ vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t count, int digit,VCL_ENUM di
 	}
 	char ccount[8];
 	for(int i=0;i<8;i++){
-		ccount[7-i] = (count & (0xff << (i*8))) >> (i*8);
+		ccount[7-i] = count & 0xff;
+		count >>=8;
 	}
 	const char *hmac =vmod_hash_hmac(ctx,hash,sec,lsec,ccount,8,true);
 	int offset = hmac[(int)mhash_get_block_size(hash)-1] & 0xf;
