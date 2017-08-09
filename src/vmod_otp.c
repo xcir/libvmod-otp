@@ -131,7 +131,7 @@ vmod_hash_hmac(VRT_CTX,
 }
 
 VCL_STRING
-vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t seed, int digit,VCL_ENUM digest){
+vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t count, int digit,VCL_ENUM digest){
 	char *sec;
 	int lsec = vmod_base32_decode(ctx,b32_secret,&sec);
 	hashid hash;
@@ -146,11 +146,11 @@ vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t seed, int digit,VCL_ENUM dig
 	}else{
 		hash = MHASH_MD4;
 	}
-	char cseed[8];
+	char ccount[8];
 	for(int i=0;i<8;i++){
-		cseed[7-i] = (seed & (0xff << (i*8))) >> (i*8);
+		ccount[7-i] = (count & (0xff << (i*8))) >> (i*8);
 	}
-	const char *hmac =vmod_hash_hmac(ctx,hash,sec,lsec,cseed,8,true);
+	const char *hmac =vmod_hash_hmac(ctx,hash,sec,lsec,ccount,8,true);
 	int offset = hmac[(int)mhash_get_block_size(hash)-1] & 0xf;
 	int code   =((hmac[offset    ] & 0x7F) << 24) |
 				((hmac[offset + 1] & 0xFF) << 16) |
@@ -181,8 +181,8 @@ event_function(VRT_CTX, struct vmod_priv *priv, enum vcl_event_e e)
 
 
 VCL_STRING
-vmod_hotp(VRT_CTX,VCL_STRING b32_secret,VCL_INT seed, VCL_INT digit,VCL_ENUM digest){
-	return vmod_otp_gen(ctx,b32_secret,seed,digit,digest);
+vmod_hotp(VRT_CTX,VCL_STRING b32_secret,VCL_INT count, VCL_INT digit,VCL_ENUM digest){
+	return vmod_otp_gen(ctx,b32_secret,count,digit,digest);
 }
 
 VCL_STRING

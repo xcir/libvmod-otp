@@ -11,16 +11,16 @@ varnish v1 -vcl+backend {
 
 
 	sub vcl_deliver {
-		set resp.http.h0 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=0);
-		set resp.http.h1 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=1);
-		set resp.http.h2 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=2);
-		set resp.http.h3 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=3);
-		set resp.http.h4 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=4);
-		set resp.http.h5 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=5);
-		set resp.http.h6 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=6);
-		set resp.http.h7 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=7);
-		set resp.http.h8 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=8);
-		set resp.http.h9 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", seed=9);
+		set resp.http.h0 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=0);
+		set resp.http.h1 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=1);
+		set resp.http.h2 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=2);
+		set resp.http.h3 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=3);
+		set resp.http.h4 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=4);
+		set resp.http.h5 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=5);
+		set resp.http.h6 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=6);
+		set resp.http.h7 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=7);
+		set resp.http.h8 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=8);
+		set resp.http.h9 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", count=9);
 
 		set resp.http.t59_sha1   = otp.totp_settime(time=59.0,digit=8,b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",digest=sha1);
 		set resp.http.t59_sha256 = otp.totp_settime(time=59.0,digit=8,b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA====",digest=sha256);

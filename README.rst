@@ -33,7 +33,7 @@ hotp
 Prototype
         ::
 
-                hotp(STRING b32_secret, INT seed, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+                hotp(STRING b32_secret, INT count, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
 Return value
 	STRING
 Description
