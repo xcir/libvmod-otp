@@ -12,8 +12,8 @@ Varnish OTP(HOTP/TOTP) module
 -------------------------------
 
 :Author: Shohei Tanaka(@xcir)
-:Date: none
-:Version: none
+:Date: 2017-08-11
+:Version: 51.1
 :Support Varnish Version: 5.1.x
 :Manual section: 3
 
