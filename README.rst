@@ -1,5 +1,5 @@
 ===================
-vmod_awsrest
+vmod_otp
 ===================
 
 -------------------------------
@@ -20,9 +20,7 @@ import otp;
 DESCRIPTION
 ===========
 
-Otp Varnish vmod demonstrating how to write an out-of-tree Varnish vmod.
-
-Implements the traditional Hello World as a vmod.
+Generate one-time password(HOTP/TOTP) token.
 
 FUNCTIONS
 =========
