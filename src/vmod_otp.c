@@ -189,12 +189,12 @@ vmod_hotp(VRT_CTX,VCL_STRING b32_secret,VCL_INT count, VCL_INT digit,VCL_ENUM di
 }
 
 VCL_STRING
-vmod_totp(VRT_CTX,VCL_STRING b32_secret,VCL_INT interval, VCL_INT digit,VCL_ENUM digest){
-	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(ctx->now / interval),digit,digest);
+vmod_totp(VRT_CTX,VCL_STRING b32_secret,VCL_INT step, VCL_INT digit,VCL_ENUM digest){
+	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(ctx->now / step),digit,digest);
 }
 
 VCL_STRING
-vmod_totp_settime(VRT_CTX,VCL_STRING b32_secret,VCL_REAL time , VCL_INT interval, VCL_INT digit,VCL_ENUM digest){
-	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(time / interval),digit,digest);
+vmod_totp_settime(VRT_CTX,VCL_STRING b32_secret,VCL_REAL time , VCL_INT step, VCL_INT digit,VCL_ENUM digest){
+	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(time / step),digit,digest);
 }
 
