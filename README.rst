@@ -1,3 +1,8 @@
+.. image:: https://travis-ci.org/xcir/libvmod-otp.svg?branch=master
+    :target: https://travis-ci.org/xcir/libvmod-otp
+.. image:: https://scan.coverity.com/projects/13456/badge.svg
+    :target: https://scan.coverity.com/projects/xcir-libvmod-otp
+
 ===================
 vmod_otp
 ===================
