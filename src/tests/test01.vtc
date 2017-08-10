@@ -46,6 +46,9 @@ varnish v1 -vcl+backend {
 		set resp.http.t20000000000_sha256 = otp.totp_settime(time=20000000000.0,digit=8,b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA====",digest=sha256);
 		set resp.http.t20000000000_sha512 = otp.totp_settime(time=20000000000.0,digit=8,b32_secret="GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA=",digest=sha512);
 
+		set resp.http.e0 = otp.hotp(b32_secret="", count=9);
+		set resp.http.e1 = otp.hotp(b32_secret="GEZDGNBVGY3TQOJ~GEZDGNBVGY3TQOJQ", count=9);
+
 	}
 } -start
 
@@ -87,6 +90,9 @@ client c1 {
 	expect resp.http.t20000000000_sha1   == "65353130"
 	expect resp.http.t20000000000_sha256 == "77737706"
 	expect resp.http.t20000000000_sha512 == "47863826"
+
+	expect resp.http.e0 == ""
+	expect resp.http.e1 == ""
 
 }
 

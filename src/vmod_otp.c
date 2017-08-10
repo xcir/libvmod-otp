@@ -58,7 +58,7 @@ static int base32ChunkDecode(const char *c,char *buf){
 
 VCL_INT vmod_base32_decode(VRT_CTX,const char*b32txt, char**buf){
 	size_t len=strlen(b32txt);
-	if(len ==0 || len %8>0){
+	if(len ==0 || len % 8 > 0){
 		return 0;
 	}
 	len=len/8*5;
@@ -133,7 +133,8 @@ vmod_hash_hmac(VRT_CTX,
 VCL_STRING
 vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t count, int digit,VCL_ENUM digest){
 	char *sec;
-	int lsec = vmod_base32_decode(ctx,b32_secret,&sec);
+	int lsec = vmod_base32_decode(ctx, b32_secret, &sec);
+	if(!lsec) return "";
 	hashid hash;
 	if      (!strcmp(digest, "sha1")){
 		hash = MHASH_SHA1;

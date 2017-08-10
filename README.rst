@@ -138,6 +138,8 @@ In your VCL you could then use this vmod along the following lines::
 COMMON PROBLEMS
 ===============
 
+* This vmod only works at a 64 bit environment.
+
 * configure: error: Need varnish.m4 -- see README.rst
 
   Check whether ``PKG_CONFIG_PATH`` and ``ACLOCAL_PATH`` were set correctly
