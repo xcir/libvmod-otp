@@ -11,7 +11,6 @@
 #include "vtim.h"
 #include "vcc_otp_if.h"
 
-#include <syslog.h>
 #include <inttypes.h>
 #include <mhash.h>
 #include <math.h>
