@@ -1,6 +1,6 @@
 AC_PREREQ([2.68])
 AC_INIT([libvmod-otp], [0.1], [], [vmod-otp])
-AC_COPYRIGHT([Copyright (c) 2011-2016 Varnish Software AS])
+AC_COPYRIGHT([Copyright (c) 2012-2017 Shohei Tanaka(@xcir)])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_SRCDIR(src/vmod_otp.vcc)
