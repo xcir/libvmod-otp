@@ -12,8 +12,8 @@ Varnish OTP(HOTP/TOTP) module
 -------------------------------
 
 :Author: Shohei Tanaka(@xcir)
-:Date: 2017-08-11
-:Version: 51.1
+:Date: 2017-08-22
+:Version: 51.2
 :Support Varnish Version: 5.1.x
 :Manual section: 3
 
@@ -43,7 +43,7 @@ hotp
 Prototype
         ::
 
-                hotp(STRING b32_secret, INT count, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+                hotp(STRING b32_secret, INT count, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } alg="sha1")
 Return value
 	STRING
 Description
@@ -55,7 +55,7 @@ Example
                     b32_secret = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", //base32 encoded secret value
                     count      = 1,                                  //counter value
                     digit      = 6,                                  //number of digits
-                    digest     = sha1                                //hash algorithm
+                    alg        = sha1                                //hash algorithm
                 )){
                   return (synth(401));
                 }
@@ -66,7 +66,7 @@ totp
 Prototype
         ::
 
-                totp(STRING b32_secret, INT step=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+                totp(STRING b32_secret, INT step=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } alg="sha1")
 Return value
 	STRING
 Description
@@ -79,7 +79,7 @@ Example
                     b32_secret = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", //base32 encoded secret value
                     step       = 30,                                 //time step in seconds
                     digit      = 6,                                  //number of digits
-                    digest     = sha1                                //hash algorithm
+                    alg        = sha1                                //hash algorithm
                 )){
                   return (synth(401));
                 }
@@ -89,7 +89,7 @@ totp_settime
 Prototype
         ::
 
-                totp_settime(STRING b32_secret, REAL time, INT step=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } digest="sha1")
+                totp_settime(STRING b32_secret, REAL time, INT step=30, INT digit=6, ENUM { md4, md5, sha1, sha256, sha512 } alg="sha1")
 Return value
 	STRING
 Description
@@ -103,7 +103,7 @@ Example
                     time       = 1502380366.0,                       //unixtime
                     step       = 30,                                 //time step in seconds
                     digit      = 6,                                  //number of digits
-                    digest     = sha1                                //hash algorithm
+                    alg        = sha1                                //hash algorithm
                 )){
                   return (synth(401));
                 }

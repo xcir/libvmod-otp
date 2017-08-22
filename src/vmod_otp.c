@@ -130,18 +130,18 @@ vmod_hash_hmac(VRT_CTX,
 }
 
 VCL_STRING
-vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t count, int digit,VCL_ENUM digest){
+vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t count, int digit,VCL_ENUM alg){
 	char *sec;
 	int lsec = vmod_base32_decode(ctx, b32_secret, &sec);
 	if(!lsec) return "";
 	hashid hash;
-	if      (!strcmp(digest, "sha1")){
+	if      (!strcmp(alg, "sha1")){
 		hash = MHASH_SHA1;
-	}else if(!strcmp(digest, "sha256")){
+	}else if(!strcmp(alg, "sha256")){
 		hash = MHASH_SHA256;
-	}else if(!strcmp(digest, "sha512")){
+	}else if(!strcmp(alg, "sha512")){
 		hash = MHASH_SHA512;
-	}else if(!strcmp(digest, "md5")){
+	}else if(!strcmp(alg, "md5")){
 		hash = MHASH_MD5;
 	}else{
 		hash = MHASH_MD4;
@@ -183,17 +183,17 @@ event_function(VRT_CTX, struct vmod_priv *priv, enum vcl_event_e e)
 
 
 VCL_STRING
-vmod_hotp(VRT_CTX,VCL_STRING b32_secret,VCL_INT count, VCL_INT digit,VCL_ENUM digest){
-	return vmod_otp_gen(ctx,b32_secret,count,digit,digest);
+vmod_hotp(VRT_CTX,VCL_STRING b32_secret,VCL_INT count, VCL_INT digit,VCL_ENUM alg){
+	return vmod_otp_gen(ctx,b32_secret,count,digit,alg);
 }
 
 VCL_STRING
-vmod_totp(VRT_CTX,VCL_STRING b32_secret,VCL_INT step, VCL_INT digit,VCL_ENUM digest){
-	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(ctx->now / step),digit,digest);
+vmod_totp(VRT_CTX,VCL_STRING b32_secret,VCL_INT step, VCL_INT digit,VCL_ENUM alg){
+	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(ctx->now / step),digit,alg);
 }
 
 VCL_STRING
-vmod_totp_settime(VRT_CTX,VCL_STRING b32_secret,VCL_REAL time , VCL_INT step, VCL_INT digit,VCL_ENUM digest){
-	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(time / step),digit,digest);
+vmod_totp_settime(VRT_CTX,VCL_STRING b32_secret,VCL_REAL time , VCL_INT step, VCL_INT digit,VCL_ENUM alg){
+	return vmod_otp_gen(ctx,b32_secret,(uint64_t)floor(time / step),digit,alg);
 }
 
