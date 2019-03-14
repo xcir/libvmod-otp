@@ -173,8 +173,12 @@ vmod_otp_gen(VRT_CTX,VCL_STRING b32_secret,uint64_t count, int digit,VCL_ENUM al
 
 }
 
-int __match_proto__(vmod_event_f)
-event_function(VRT_CTX, struct vmod_priv *priv, enum vcl_event_e e)
+int 
+#if VRT_MAJOR_VERSION > 8
+  vmod_event_function(VRT_CTX, struct vmod_priv *priv, enum vcl_event_e e)
+#else
+  event_function(VRT_CTX, struct vmod_priv *priv, enum vcl_event_e e)
+#endif
 {
 
 	switch (e) {
