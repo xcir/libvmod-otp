@@ -4,9 +4,16 @@
 #include <stdlib.h>
 
 /* need vcl.h before vrt.h for vmod_evet_f typedef */
-#include "vcl.h"
-#include "vrt.h"
 #include "cache/cache.h"
+#include "vcl.h"
+
+#ifndef VRT_H_INCLUDED
+#include <vrt.h>
+#endif
+
+#ifndef VDEF_H_INCLUDED
+#include <vdef.h>
+#endif
 
 #include "vtim.h"
 #include "vcc_otp_if.h"
