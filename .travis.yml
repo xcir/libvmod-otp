@@ -1,44 +1,36 @@
 ---
 sudo: required
-dist: trusty
+dist: xenial
 
 language: c
-
-env:
-  global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "AkzqLFjO+IlxBFXN9WW91I8zpz4kKSF9fmwYmB4if2P9NcAqYGje+tqT+gf7EtT3h0wiipOzbp7UpWs0WxeACgKHu4gkukI0TfL8CpnGZup0vlzm1Qn7pZC4dYHIenpIjGiiyV1ufJeRnnkuRfoIGsrBJg9tAcD8pfUrsgDW0Zafx+ToxGrD+jENlK5VfkNe+dShqC1VVbdy6uOI7NUCW6lSufoRB5bIxFBhdON/f3Y2kjbzJ0vvJYmNJlm0UHSp10yLTRChiGM2xqMOpquAw/9l9fIm7lcuKbrcnVLpE3jKfFJkyS+Tlr7HZ6u5iBNQ4dgkxLBx8ur+UI2ksROBlP4YhRhX245hOSz6C7Enn8In6s2c8+5gnSDh0A7yUjXGDCT5JnKL9giMm959cvojuxJ6VxSGzqnpCV0tjPHnxCRkqMnF6D62JP5G4mfROP1BNhdEG6tb64+8SC2gvHXVQiMZh8a0jdXY9WCmalWDi0lFR1ROgKua9mEJwZJOx5KeOqjOVywn5DWRb8Ct717bzPqE8X2mNeB/fC4HEswzjZDi6pWogKR7Bxq368twK0DQ4xJLJl6G7SlnC/VP005p2ki4mCTHAvL75LSCI1g7phMbZ51z80yya/1Q4xL07deQBXwGPlczp7ClWp7jueCG6Hjmjr2+Tao+sAYHUf+OCwQ="
 
 addons:
   apt:
     packages:
     - python-docutils
     - libmhash-dev
-  coverity_scan:
-    project:
-      name: "xcir/libvmod-otp"
-      description: "Build submitted via Travis CI"
-    notification_email: kokoniimasu+xcir@gmail.com
-    build_command_prepend: "./autogen.sh; ./configure --prefix=/usr; make clean"
-    build_command:   "make -j 4"
-    branch_pattern: master
+    - python-sphinx
 
 before_install:
   - set -e
-  - wget https://varnish-cache.org/_downloads/varnish-5.2.0-rc2.tgz
+  - wget $VARSNIH_TGZ
   - tar -zxf varnish-*.tgz
   - pushd varnish-*/
   - ./configure --prefix=/usr
   - make -sj32
   - sudo make install
-  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
   - popd
 
 before_script:
   - ./autogen.sh
   - ./configure --prefix=/usr
   - make -j4
+
+env:
+  - VARSNIH_TGZ=https://varnish-cache.org/_downloads/varnish-6.1.1.tgz
+  - VARSNIH_TGZ=https://varnish-cache.org/_downloads/varnish-6.0.3.tgz
+  - VARSNIH_TGZ=https://varnish-cache.org/_downloads/varnish-5.2.1.tgz
+  - VARSNIH_TGZ=https://varnish-cache.org/_downloads/varnish-5.1.3.tgz
 
 script:
   - make check -j4
