@@ -7,6 +7,7 @@
 #
 
 $Module otp 3 Otp VMOD
+$ABI vrt
 
 DESCRIPTION
 ===========
