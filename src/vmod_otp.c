@@ -69,7 +69,11 @@ VCL_INT vmod_base32_decode(VRT_CTX,const char*b32txt, char**buf){
 	}
 	len=len/8*5;
 	unsigned u;
+	#if VRT_MAJOR_VERSION > 9
+	u = WS_ReserveAll(ctx->ws);
+	#else
 	u = WS_Reserve(ctx->ws, 0);
+	#endif
 	if(len+1 > u){
 		WS_Release(ctx->ws, 0);
 		WS_MarkOverflow(ctx->ws);
@@ -107,7 +111,11 @@ vmod_hash_hmac(VRT_CTX,
 	
 	unsigned char *mac;
 	unsigned u;
+	#if VRT_MAJOR_VERSION > 9
+	u = WS_ReserveAll(ctx->ws);
+	#else
 	u = WS_Reserve(ctx->ws, 0);
+	#endif
 	assert(u > blocksize);
 	mac = (unsigned char*)ctx->ws->f;
 	
